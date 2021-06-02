@@ -18,8 +18,8 @@ public enum CellState
 
 public class Cell : MonoBehaviour
 {
+    [SerializeField] private GameObject m_bottan;
     [SerializeField] private Text m_view = null;
-
     private CellState cellState = CellState.None;
 
     public CellState m_cellsState
@@ -55,5 +55,19 @@ public class Cell : MonoBehaviour
             m_view.text = ((int)cellState).ToString();
             m_view.color = Color.blue;
         }
+    }
+
+
+    public bool m_open = false;
+
+    public void PointDown()
+    {
+        m_open = true;
+    }
+
+    public void Destroy()
+    {
+        if (m_open)
+            Destroy(m_bottan);
     }
 }

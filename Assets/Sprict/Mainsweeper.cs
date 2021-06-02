@@ -13,9 +13,11 @@ public class Mainsweeper : MonoBehaviour
 
     [SerializeField] private int m_mainCount = 0;
 
+    private Cell[,] cells;
+
     void Start()
     {
-        var cells = new Cell[m_row, m_colmns];
+        cells = new Cell[m_row, m_colmns];
 
         for (int i = 0; i < m_row; i++)
         {
@@ -74,6 +76,37 @@ public class Mainsweeper : MonoBehaviour
                 }
 
                 cell.m_cellsState = (CellState)count;
+            }
+        }
+    }
+
+    void Update()
+    {
+        for (int i = 0; i < m_row; i++)
+        {
+            for (int j = 0; j < m_colmns; j++)
+            {
+                cells[i, j].Destroy();
+
+                if (cells[i, j].m_cellsState == CellState.None && cells[i, j].m_open == true)
+                {
+                    for (int r = i - 1; r <= i + 1; r++)
+                    {
+                        for (int c = j - 1; c <= j + 1; c++)
+                        {
+                            if (r < 0 || r >= m_row)
+                            {
+                                continue;
+                            }
+                            else if (c < 0 || c >= m_colmns)
+                            {
+                                continue;
+                            }
+                            cells[r, c].m_open = true;
+                            cells[r, c].Destroy();
+                        }
+                    }
+                }
             }
         }
     }
