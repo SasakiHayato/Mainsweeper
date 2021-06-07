@@ -56,9 +56,11 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Prefab\Scenes\ArraySumple\ArraySprict.cs" />
-    <Compile Include="Assets\Sprict\Cell.cs" />
-    <Compile Include="Assets\Sprict\Mainsweeper.cs" />
+    <Compile Include="Assets\Scenes\ArraySumple\ArraySprict.cs" />
+    <Compile Include="Assets\Script\GameManager.cs" />
+    <Compile Include="Assets\Script\Cell.cs" />
+    <Compile Include="Assets\Script\Mainsweeper.cs" />
+    <Compile Include="Assets\Script\FragCheck.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
