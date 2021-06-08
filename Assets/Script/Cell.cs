@@ -13,12 +13,14 @@ public enum CellState
     Seven = 7,
     Eight = 8,
 
-    Mine = -1,
+    Time = -1,
+
+    Mine = -2,
 }
 
 public class Cell : MonoBehaviour
 {
-    [SerializeField] public Button m_bottan = null;
+    [SerializeField] public GameObject m_bottan = null;
     [SerializeField] private Text m_view = null;
     [SerializeField] public Text frag = null;
 
@@ -52,6 +54,11 @@ public class Cell : MonoBehaviour
             m_view.text = "M";
             m_view.color = Color.white;
         }
+        else if (cellState == CellState.Time)
+        {
+            m_view.text = "T";
+            m_view.color = Color.white;
+        }
         else
         {
             m_view.text = ((int)cellState).ToString();
@@ -74,12 +81,16 @@ public class Cell : MonoBehaviour
         }
     }
 
+    public void Open()
+    {
+        Destroy(m_bottan);
+    }
+
     public void DestroyButton()
     {
-        //if (isOpen)
-        //{
-        //    Debug.Log("a");
-        //    m_bottan.enabled = false;
-        //}
+        if (isOpen)
+        {
+            Destroy(m_bottan);
+        }
     }
 }
