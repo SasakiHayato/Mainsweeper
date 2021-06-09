@@ -400,6 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlay: 1
+  ui: {fileID: 0}
 --- !u!114 &1713248467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -708,6 +709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlay: 1
+  ui: {fileID: 0}
 --- !u!4 &2009071628
 Transform:
   m_ObjectHideFlags: 0

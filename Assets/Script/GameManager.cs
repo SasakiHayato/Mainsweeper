@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public bool isPlay = true;
+    [SerializeField] private UiController ui;
 
     public void OnClickStart()
     {
@@ -13,15 +14,26 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Main");
     }
 
+    public void OnClickTitle()
+    {
+        SceneManager.LoadScene("Title");
+    }
+
     private float time = 0;
     private void Update()
     {
-        if (isPlay != false) return;
-
-        time += Time.deltaTime;
-        if (time > 3)
+        if (isPlay == true)
         {
-            SceneManager.LoadScene("Rezult Scene");
+            ui.TimeCheck();
+            ui.ScoreCheck();
+        }
+        else
+        {
+            time += Time.deltaTime;
+            if (time > 3)
+            {
+                ui.rezultScene.gameObject.SetActive(true);
+            }
         }
     }
 }

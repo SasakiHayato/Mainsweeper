@@ -13,14 +13,13 @@ public enum CellState
     Seven = 7,
     Eight = 8,
 
-    Time = -1,
-
-    Mine = -2,
+    Mine = 9,
 }
 
 public class Cell : MonoBehaviour
 {
     [SerializeField] public GameObject m_bottan = null;
+  
     [SerializeField] private Text m_view = null;
     [SerializeField] public Text frag = null;
 
@@ -52,12 +51,7 @@ public class Cell : MonoBehaviour
         else if (cellState == CellState.Mine)
         {
             m_view.text = "M";
-            m_view.color = Color.white;
-        }
-        else if (cellState == CellState.Time)
-        {
-            m_view.text = "T";
-            m_view.color = Color.white;
+            m_view.color = Color.black;
         }
         else
         {
@@ -67,17 +61,21 @@ public class Cell : MonoBehaviour
     }
 
     public bool isOpen = false;
-    
-    public void PointDown()
+
+    private void Start()
     {
-        isOpen = true;
+        frag.gameObject.SetActive(false);
     }
 
-    public void FragCheck()
+    public void PointDown()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonUp(0))
         {
-            frag.enabled = true;
+            isOpen = true;
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            frag.gameObject.SetActive(true);
         }
     }
 

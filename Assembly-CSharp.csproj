@@ -58,10 +58,10 @@
   <ItemGroup>
     <Compile Include="Assets\Script\UiController.cs" />
     <Compile Include="Assets\Scenes\ArraySumple\ArraySprict.cs" />
-    <Compile Include="Assets\Script\FragCheck.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\Script\Cell.cs" />
     <Compile Include="Assets\Script\Mainsweeper.cs" />
+    <Compile Include="Assets\RezultController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

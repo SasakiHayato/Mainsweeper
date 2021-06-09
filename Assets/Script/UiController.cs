@@ -10,19 +10,20 @@ public class UiController : MonoBehaviour
     [SerializeField] private GameManager manager;
     [SerializeField] private Mainsweeper main;
 
-    private float timer = 10;
-    private int score = 0;
-    void Update()
+    [SerializeField] public GameObject rezultScene;
+
+    public float timer = 9999;
+    public int score = 0;
+
+    private void Start()
     {
-        if (manager.isPlay != true) return;
-        TimeCheck();
-        ScoreCheck();
+        rezultScene.gameObject.SetActive(false);
     }
 
-    void TimeCheck()
+    public void TimeCheck()
     {
         timer -= Time.deltaTime;
-        timeText.text = timer.ToString("0000");
+        timeText.text = timer.ToString("Time:" + "00");
 
         if (timer <= 0)
         {
@@ -30,10 +31,10 @@ public class UiController : MonoBehaviour
         }
     }
 
-    void ScoreCheck()
+    public void ScoreCheck()
     {
         score = main.maxCount * 1000;
         
-        scoreText.text = score.ToString("0000");
+        scoreText.text = score.ToString("Score:" + "0000");
     }
 }

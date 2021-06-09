@@ -12,18 +12,18 @@ public class Mainsweeper : MonoBehaviour
     [SerializeField] public int m_row = 1;
     [SerializeField] public int m_colmns = 1;
 
-    [SerializeField] private int m_mainCount = 0;
-    [SerializeField] private int m_timer = 0;
+    private int m_mainCount = 25;
 
     private Cell[,] cells;
 
     private int openCount = 0;
+    private int timeCount = 0;
     public int maxCount = 0;
+    
     void Start()
     {
         manager.isPlay = true;
-        m_cellPrefab.frag.enabled = false;
-
+        
         cells = new Cell[m_row, m_colmns];
         for (int i = 0; i < m_row; i++)
         {
@@ -41,12 +41,6 @@ public class Mainsweeper : MonoBehaviour
                 CreateMain(count);
                 count++;
             }
-        }
-
-        if (cells.Length < m_timer) m_timer = cells.Length;
-        for (int count = 0; count < m_timer; count++)
-        {
-            CreateTimer();
         }
 
         for (int i = 0; i < m_row; i++)
@@ -85,17 +79,6 @@ public class Mainsweeper : MonoBehaviour
         }
     }
 
-    void CreateTimer()
-    {
-        var row = Random.Range(0, m_row);
-        var colmns = Random.Range(0, m_colmns);
-
-        if (cells[row, colmns].m_cellsState != CellState.Time)
-        {
-            cells[row, colmns].m_cellsState = CellState.Time;
-        }
-    }
-
     void CountAround(int x, int y, int count)
     {
         for (int r = x - 1; r <= x + 1; r++)
@@ -130,6 +113,7 @@ public class Mainsweeper : MonoBehaviour
         {
             for (int j = 0; j < m_colmns; j++)
             {
+                
                 cells[i, j].DestroyButton();
 
                 if (cells[i, j].m_cellsState == CellState.None && cells[i, j].isOpen)
@@ -165,7 +149,7 @@ public class Mainsweeper : MonoBehaviour
             }
         }
     }
-
+    int timeUp = 5;
     private void CellsCount()
     {
         foreach (var cell in cells)
@@ -175,15 +159,24 @@ public class Mainsweeper : MonoBehaviour
                 openCount++;
             }
         }
-
-        if (openCount == m_colmns * m_row - m_mainCount)
+        //‚±‚±‚â‚é
+        if (timeCount < openCount)
         {
-            manager.isPlay = false;
+            timeCount = openCount;
+            if (timeCount == timeUp)
+            {
+                timeUp += 5; 
+            }
         }
 
         if (maxCount < openCount)
         {
             maxCount = openCount;
+        }
+
+        if (openCount == m_colmns * m_row - m_mainCount)
+        {
+            manager.isPlay = false;
         }
         openCount = 0;
     }
