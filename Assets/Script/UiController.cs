@@ -12,7 +12,7 @@ public class UiController : MonoBehaviour
 
     [SerializeField] public GameObject rezultScene;
 
-    public float timer = 9999;
+    [SerializeField] public float timer = 0;
     public int score = 0;
 
     private void Start()
@@ -33,8 +33,7 @@ public class UiController : MonoBehaviour
 
     public void ScoreCheck()
     {
-        score = main.maxCount * 1000;
-        
+        score = main.maxCount * 500;
         scoreText.text = score.ToString("Score:" + "0000");
     }
 }

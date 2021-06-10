@@ -8,16 +8,15 @@ public class Mainsweeper : MonoBehaviour
     [SerializeField] private Cell m_cellPrefab = null;
     [SerializeField] private GridLayoutGroup m_container = null;
     [SerializeField] private GameManager manager = null;
+    [SerializeField] private UiController ui = null;
 
     [SerializeField] public int m_row = 1;
     [SerializeField] public int m_colmns = 1;
 
-    private int m_mainCount = 25;
+    private int m_mainCount = 15;
 
     private Cell[,] cells;
 
-    private int openCount = 0;
-    private int timeCount = 0;
     public int maxCount = 0;
     
     void Start()
@@ -120,10 +119,15 @@ public class Mainsweeper : MonoBehaviour
                 {
                     OpenCells(i, j);
                 }
+                if (cells[i, j].m_cellsState != CellState.Mine && cells[i, j].m_cellsState != CellState.None && cells[i, j].isOpen)
+                {
+                    CellsCount();
+                }
 
                 if (cells[i, j].m_cellsState == CellState.Mine && cells[i, j].isOpen)
                 {
-                    manager.isPlay = false;
+                    //manager.isPlay = false;
+                    MineCount();
                 }
             }
         }
@@ -149,9 +153,13 @@ public class Mainsweeper : MonoBehaviour
             }
         }
     }
+
     int timeUp = 5;
+    int timeCount = 0;
+
     private void CellsCount()
     {
+        int openCount = 0;
         foreach (var cell in cells)
         {
             if (cell.isOpen)
@@ -159,13 +167,15 @@ public class Mainsweeper : MonoBehaviour
                 openCount++;
             }
         }
-        //‚±‚±‚â‚é
+        
         if (timeCount < openCount)
         {
             timeCount = openCount;
             if (timeCount == timeUp)
             {
-                timeUp += 5; 
+                Debug.Log("’Ê‚Á‚½");
+                ui.timer += 5;
+                timeUp += 5;
             }
         }
 
@@ -178,7 +188,26 @@ public class Mainsweeper : MonoBehaviour
         {
             manager.isPlay = false;
         }
-        openCount = 0;
+    }
+
+    int mineCount = 0;
+
+    private void MineCount()
+    {
+        int openMine = 0;
+        foreach (var cell in cells)
+        {
+            if(cell.isOpen)
+            {
+                openMine++;
+            }
+        }
+
+        if (mineCount < openMine)
+        {
+            mineCount = openMine;
+            Debug.Log(mineCount);
+        }
     }
 
     private void OnValidate()

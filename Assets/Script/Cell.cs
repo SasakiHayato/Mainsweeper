@@ -66,7 +66,7 @@ public class Cell : MonoBehaviour
     {
         frag.gameObject.SetActive(false);
     }
-
+    int fragBool = 1;
     public void PointDown()
     {
         if (Input.GetMouseButtonUp(0))
@@ -75,7 +75,16 @@ public class Cell : MonoBehaviour
         }
         else if (Input.GetMouseButtonUp(1))
         {
-            frag.gameObject.SetActive(true);
+            fragBool += 1;
+            if (fragBool % 2 == 0)
+            {
+                frag.gameObject.SetActive(true);
+            }
+            else
+            {
+                frag.gameObject.SetActive(false);
+            }
+            
         }
     }
 
