@@ -19,9 +19,10 @@ public enum CellState
 public class Cell : MonoBehaviour
 {
     [SerializeField] public GameObject m_bottan = null;
-  
     [SerializeField] private Text m_view = null;
     [SerializeField] public Text frag = null;
+
+    Mainsweeper m_main = null;
 
     private CellState cellState = CellState.None;
 
@@ -66,11 +67,22 @@ public class Cell : MonoBehaviour
     {
         frag.gameObject.SetActive(false);
     }
+
+    public void Set(Mainsweeper mainsweeper)
+    {
+        m_main = mainsweeper;
+    }
+
     int fragBool = 1;
     public void PointDown()
     {
         if (Input.GetMouseButtonUp(0))
         {
+            if (m_main.startBool == false)
+            {
+                m_main.startBool = true;
+                m_main.StartCreate();
+            }
             isOpen = true;
         }
         else if (Input.GetMouseButtonUp(1))

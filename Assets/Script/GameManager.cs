@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public bool isPlay = true;
+    public bool clearCheck = true;
+
     [SerializeField] private UiController ui;
 
     public void OnClickStart()
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
         {
             ui.TimeCheck();
             ui.ScoreCheck();
+            ui.MyHpCheck();
         }
         else
         {
@@ -34,6 +37,15 @@ public class GameManager : MonoBehaviour
             {
                 ui.rezultScene.gameObject.SetActive(true);
             }
+        }
+    }
+
+    public void ClearCheck()
+    {
+        time += Time.deltaTime;
+        if (time > 2)
+        {
+            SceneManager.LoadScene("Main");
         }
     }
 }

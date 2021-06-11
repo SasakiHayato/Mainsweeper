@@ -13,35 +13,51 @@ public class Mainsweeper : MonoBehaviour
     [SerializeField] public int m_row = 1;
     [SerializeField] public int m_colmns = 1;
 
-    private int m_mainCount = 15;
+    private int m_mainCount = 24;
+    public bool startBool;
 
     private Cell[,] cells;
 
     public int maxCount = 0;
-    
     void Start()
     {
+        startBool = false;
         manager.isPlay = true;
-        
+
         cells = new Cell[m_row, m_colmns];
         for (int i = 0; i < m_row; i++)
         {
             for (int j = 0; j < m_colmns; j++)
             {
                 CreateCells(i, j, cells);
+
             }
         }
+    }
 
+    public void StartCreate()
+    {
         if (cells.Length < m_mainCount) m_mainCount = cells.Length;
         if (cells.Length >= m_mainCount)
         {
-            for (int count = 0; count < m_mainCount;)
+            for (int count = 0; count < m_mainCount; count++)
             {
-                CreateMain(count);
-                count++;
-            }
-        }
+                //CreateMine
+                var row = Random.Range(0, m_row);
+                var colmns = Random.Range(0, m_colmns);
 
+                if (cells[row, colmns].m_cellsState != CellState.Mine)
+                {
+                    cells[row, colmns].m_cellsState = CellState.Mine;
+                }
+                else
+                {
+                    count--;
+                }
+                
+            }
+            
+        }
         for (int i = 0; i < m_row; i++)
         {
             for (int j = 0; j < m_colmns; j++)
@@ -59,23 +75,8 @@ public class Mainsweeper : MonoBehaviour
         var cell = Instantiate(m_cellPrefab);
         var pearent = m_container.gameObject.transform;
         cell.transform.SetParent(pearent);
-
+        cell.Set(this);
         cells[x, y] = cell;
-    }
-
-    void CreateMain(int count)
-    {
-        var row = Random.Range(0, m_row);
-        var colmns = Random.Range(0, m_colmns);
-
-        if (cells[row, colmns].m_cellsState != CellState.Mine)
-        {
-            cells[row, colmns].m_cellsState = CellState.Mine;
-        }
-        else
-        {
-            count--;
-        }
     }
 
     void CountAround(int x, int y, int count)
@@ -126,7 +127,6 @@ public class Mainsweeper : MonoBehaviour
 
                 if (cells[i, j].m_cellsState == CellState.Mine && cells[i, j].isOpen)
                 {
-                    //manager.isPlay = false;
                     MineCount();
                 }
             }
@@ -168,12 +168,11 @@ public class Mainsweeper : MonoBehaviour
             }
         }
         
-        if (timeCount < openCount)
+        if (timeCount <= openCount)
         {
             timeCount = openCount;
             if (timeCount == timeUp)
             {
-                Debug.Log("’Ê‚Á‚½");
                 ui.timer += 5;
                 timeUp += 5;
             }
@@ -186,7 +185,8 @@ public class Mainsweeper : MonoBehaviour
 
         if (openCount == m_colmns * m_row - m_mainCount)
         {
-            manager.isPlay = false;
+            manager.ClearCheck();
+            //manager.isPlay = false;
         }
     }
 
@@ -197,7 +197,7 @@ public class Mainsweeper : MonoBehaviour
         int openMine = 0;
         foreach (var cell in cells)
         {
-            if(cell.isOpen)
+            if(cell.isOpen && cell.m_cellsState == CellState.Mine)
             {
                 openMine++;
             }
@@ -206,7 +206,12 @@ public class Mainsweeper : MonoBehaviour
         if (mineCount < openMine)
         {
             mineCount = openMine;
-            Debug.Log(mineCount);
+
+            ui.hp--;
+            if (ui.hp <= 0)
+            {
+                manager.isPlay = false;
+            }
         }
     }
 

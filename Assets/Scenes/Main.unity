@@ -548,6 +548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlay: 0
+  clearCheck: 1
   ui: {fileID: 832273841}
 --- !u!4 &544269518
 Transform:
@@ -564,6 +565,85 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &780612797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 780612798}
+  - component: {fileID: 780612800}
+  - component: {fileID: 780612799}
+  m_Layer: 5
+  m_Name: Hp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &780612798
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780612797}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 49.172615}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 832273840}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -259.33142, y: 94.38504}
+  m_SizeDelta: {x: 179.3084, y: 49.3084}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &780612799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780612797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 24
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Hp: 000'
+--- !u!222 &780612800
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780612797}
+  m_CullTransparentMesh: 1
 --- !u!1 &832273839
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,6 +674,7 @@ Transform:
   m_Children:
   - {fileID: 189821142}
   - {fileID: 1759947791}
+  - {fileID: 780612798}
   - {fileID: 2137080916}
   m_Father: {fileID: 229174168}
   m_RootOrder: 2
@@ -612,9 +693,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeText: {fileID: 189821143}
   scoreText: {fileID: 1759947792}
+  hpText: {fileID: 780612799}
   manager: {fileID: 544269517}
   main: {fileID: 1807096983}
   rezultScene: {fileID: 2137080915}
+  hp: 5
   timer: 30
   score: 0
 --- !u!1 &938508061
@@ -948,8 +1031,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -265.98563, y: 162.38504}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -278.66, y: 155.37915}
+  m_SizeDelta: {x: 228, y: 43.7917}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1759947792
 MonoBehaviour:
@@ -973,7 +1056,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_FontSize: 27
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -1036,7 +1119,7 @@ MonoBehaviour:
   m_CellSize: {x: 33, y: 33}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 1
-  m_ConstraintCount: 10
+  m_ConstraintCount: 5
 --- !u!114 &1807096980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1110,8 +1193,9 @@ MonoBehaviour:
   m_container: {fileID: 1807096979}
   manager: {fileID: 544269517}
   ui: {fileID: 832273841}
-  m_row: 10
-  m_colmns: 10
+  m_row: 5
+  m_colmns: 5
+  startBool: 0
   maxCount: 0
 --- !u!1 &2021192728
 GameObject:
@@ -1213,7 +1297,7 @@ RectTransform:
   - {fileID: 938508062}
   - {fileID: 11717691}
   m_Father: {fileID: 832273840}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
